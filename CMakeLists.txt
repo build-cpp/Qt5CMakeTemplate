@@ -31,7 +31,8 @@ project(Qt5CMakeTemplate
 
 include("cmake/Qt5Helpers.cmake")
 
-find_package(Qt5
+# Packages
+find_package(Qt5 REQUIRED CONFIG
 	COMPONENTS
 		Widgets
 )

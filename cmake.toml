@@ -1,0 +1,36 @@
+[cmake]
+minimum = "3.15"
+cmkr-include = "cmake/cmkr.cmake"
+
+[project]
+name = "Qt5CMakeTemplate"
+version = "0.1.0"
+description = "Simple template for Qt5 to get you started"
+include-after = ["cmake/Qt5Helpers.cmake"]
+
+[find-package]
+Qt5 = { components = ["Widgets"] }
+
+[target.MyApplication]
+type = "executable"
+sources = [
+    "MyApplication/main.cpp",
+    "MyApplication/MainWindow.cpp",
+    "MyApplication/MainWindow.h",
+    "MyApplication/MainWindow.ui",
+    "MyApplication/resource.qrc",
+]
+link-libraries = ["Qt5::Widgets"]
+cmake-after = """
+# Copy Qt DLLs next to the application
+target_windeployqt(MyApplication)
+
+# Application without console
+if(MSVC)
+    target_link_options(MyApplication PRIVATE /SUBSYSTEM:WINDOWS)
+endif()
+"""
+
+[[install]]
+targets = ["MyApplication"]
+destination = "bin"

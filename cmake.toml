@@ -21,14 +21,13 @@ sources = [
     "MyApplication/resource.qrc",
 ]
 link-libraries = ["Qt5::Widgets"]
+msvc.link-options = ["/SUBSYSTEM:WINDOWS"]
 cmake-after = """
-# Copy Qt DLLs next to the application
-target_windeployqt(MyApplication)
+# Enable Qt moc/rrc/uic support
+target_qt(${CMKR_TARGET})
 
-# Application without console
-if(MSVC)
-    target_link_options(MyApplication PRIVATE /SUBSYSTEM:WINDOWS)
-endif()
+# Copy Qt DLLs next to the application
+target_windeployqt(${CMKR_TARGET})
 """
 
 [[install]]

@@ -1,18 +1,24 @@
 # https://github.com/mrexodia/Qt5CMakeTemplate
 # License: BSL-1.0
 
-# Reference: https://www.kdab.com/wp-content/uploads/stories/QTVTC20-Using-Modern-CMake-Kevin-Funk.pdf
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
-set(CMAKE_AUTOUIC ON)
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-
 # Make the project look nicer in IDEs
 set_property(GLOBAL PROPERTY AUTOGEN_SOURCE_GROUP "Generated Files")
 set_property(GLOBAL PROPERTY AUTOGEN_TARGETS_FOLDER "CMakePredefinedTargets")
 
 # Install Visual Studio runtime
 include(InstallRequiredSystemLibraries)
+
+# Helper function to enable moc/rcc/uic
+function(target_qt target)
+    set_target_properties(${target} PROPERTIES
+        AUTOMOC
+            ON
+        AUTORCC
+            ON
+        AUTOUIC
+            ON
+    )
+endfunction()
 
 # Helper function to deploy Qt DLLs
 function(target_windeployqt deploy_target)

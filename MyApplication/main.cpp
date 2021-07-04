@@ -1,5 +1,7 @@
 #include "MainWindow.h"
 
+#include <clocale>
+#include <cstdio>
 #include <QApplication>
 
 int main(int argc, char* argv[])
